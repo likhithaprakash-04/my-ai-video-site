@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My AI Video Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>🎬 AI Video Generator</h1>
+    <p class="subtitle">Create amazing videos for free!</p>
+
+    <div class="input-box">
+      <textarea 
+        id="prompt" 
+        placeholder="Describe your video here... Example: A miniature dosa being cooked on a copper tawa with candlelight"
+        rows="5"
+      ></textarea>
+    </div>
+
+    <button id="generateBtn" onclick="generateVideo()">
+      ✨ Generate Video
+    </button>
+
+    <div id="loading" class="loading" style="display:none;">
+      <div class="spinner"></div>
+      <p>Creating your video... please wait...</p>
+    </div>
+
+    <div id="result" class="result" style="display:none;">
+      <h3>Your Video is Ready!</h3>
+      <video id="videoPlayer" controls autoplay loop></video>
+      <br>
+      <a id="downloadBtn" download="ai-video.mp4">
+        ⬇️ Download Video
+      </a>
+    </div>
+
+    <div id="error" class="error" style="display:none;"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
