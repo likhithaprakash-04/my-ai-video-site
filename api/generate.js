@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const hfResponse = await fetch(
-      "https://router.huggingface.co/hf-inference/models/Wan-AI/Wan2.1-T2V-14B",
+      "https://router.huggingface.co/fal-ai/fal-ai/ltx-video",
       {
         method: "POST",
         headers: {
@@ -21,25 +21,20 @@ export default async function handler(req, res) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          inputs: prompt,
-          parameters: {
-            num_frames: 49,
-            fps: 8,
-            width: 832,
-            height: 480,
-          }
+          prompt: prompt
         })
       }
     );
 
+    const responseText = await hfResponse.text();
+
     if (!hfResponse.ok) {
-      const errText = await hfResponse.text();
-      return res.status(hfResponse.status).json({ error: errText });
+      return res.status(hfResponse.status).json({ error: responseText });
     }
 
-    const arrayBuffer = await hfResponse.arrayBuffer();
-    res.setHeader("Content-Type", "video/mp4");
-    res.status(200).send(Buffer.from(arrayBuffer));
+    // fal-ai returns JSON with a video URL, not raw video bytes
+    const data = JSON.parse(responseText);
+    return res.status(200).json(data);
 
   } catch (error) {
     res.status(500).json({ error: error.message });

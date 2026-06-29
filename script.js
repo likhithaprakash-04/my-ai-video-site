@@ -27,12 +27,16 @@ async function generateVideo() {
       throw new Error("Video generation failed. Try again!");
     }
 
-    const blob = await response.blob();
-    const videoUrl = URL.createObjectURL(blob);
+   const data = await response.json();
+const videoUrl = data.video?.url || data.url;
 
-    document.getElementById("videoPlayer").src = videoUrl;
-    document.getElementById("downloadBtn").href = videoUrl;
-    document.getElementById("result").style.display = "block";
+if (!videoUrl) {
+  throw new Error("No video URL in response");
+}
+
+document.getElementById("videoPlayer").src = videoUrl;
+document.getElementById("downloadBtn").href = videoUrl;
+document.getElementById("result").style.display = "block";
 
   } catch (error) {
     document.getElementById("error").style.display = "block";
