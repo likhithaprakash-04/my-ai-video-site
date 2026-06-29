@@ -9,12 +9,11 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "Prompt is required" });
   }
 
-  // The real key. Stored as a Vercel environment variable — NEVER in this file.
   const API_KEY = process.env.HF_API_KEY;
 
   try {
     const hfResponse = await fetch(
-      "https://api-inference.huggingface.co/models/Wan-AI/Wan2.1-T2V-14B",
+      "https://router.huggingface.co/hf-inference/models/Wan-AI/Wan2.1-T2V-14B",
       {
         method: "POST",
         headers: {
