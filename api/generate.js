@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
   try {
     const hfResponse = await fetch(
-      "https://router.huggingface.co/fal-ai/fal-ai/ltx-video",
+      "https://router.huggingface.co/fal-ai/fal-ai/hunyuan-video",
       {
         method: "POST",
         headers: {
@@ -26,8 +26,6 @@ export default async function handler(req, res) {
 
     const responseText = await hfResponse.text();
 
-    // Always return what HF actually said, even on failure,
-    // so we can see the real reason instead of guessing
     if (!hfResponse.ok) {
       return res.status(hfResponse.status).json({
         error: "Hugging Face API error",
